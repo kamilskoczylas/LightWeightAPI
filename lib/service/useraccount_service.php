@@ -1,10 +1,5 @@
 <?php
-    require_once ('lib/repository/useraccount_repository.php');
     require_once ('lib/repository/session_repository.php');
-    require_once ('lib/repository/country_repository.php');
-    require_once ('lib/repository/application_repository.php');
-    require_once ('lib/dto/application_dto.php');
-    
     require_once ('lib/dto/session_creator_dto.php');
     require_once ('lib/dto/session_dto.php');
 
@@ -13,10 +8,7 @@
         function __construct(Response $responseClass = null)
         {
             parent::__construct($responseClass);
-            $this->useraccount = new UseraccountRepository();
             $this->session = new SessionRepository();
-            $this->country = new CountryRepository();
-            $this->application = new ApplicationRepository();
         }
         
         
@@ -46,19 +38,12 @@
         
         function DeleteSession(DeleteUseraccountSessionRequest $deleteUseraccountSessionRequest){
 
-                assert(isset($full_application_information) && $full_application_information !== false && 
-                    get_class($full_application_information) == "Application_dto" && $full_application_information->id_application > 0);
-                
-                
                 $session_dto = new Session_dto();
-                //$session_dto->application_id = $full_application_information->id_application;
                 $session_dto->session_guid = $deleteUseraccountSessionRequest->session_guid;
                 $session_information = $this->session->Get($session_dto);
                 
-                
                 assert(isset($session_information) && $session_information !== false && 
-                    get_class($session_information) == "Session_dto" && strlen($session_information->session_guid) == 36
-                    && $full_application_information->id_application == $session_information->application_id);
+                    get_class($session_information) == "Session_dto" && strlen($session_information->session_guid) == 36);
                 
                 $this->session->Delete(
                         $session_information

@@ -48,6 +48,12 @@ If the project has already been cloned without `--recurse-submodules`, use:
 git submodule update --init --recursive
 ```
 
+Update of lib dependencies to the newest version of the framework
+
+```bash
+git submodule update --remote lib
+```
+
 
 ## Architecture
 
@@ -57,6 +63,10 @@ The framework follows a 4-layer architecture pattern:
 2. **Service** - Implements business logic
 3. **Repository** - Handles database access
 4. **Response** - Validates output data
+
+Optional
+5. **Adapter** - Adapter classes helps to separate third party dependencies from your code
+6. **Mapper** - Mapper classes translates Requests to DTO
 
 ## Convention Naming
 
